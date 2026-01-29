@@ -53,4 +53,28 @@ The risk-free rate assumes your idle cash earns that rate. In reality, you'd nee
 
 The moving average strategy is done on the whole portfolio level not on individual stock.
 
-Not financial advice. Just math on historical data.
+Example
+If your optimal portfolio is:
+
+50% AAPL
+30% MSFT
+20% GOOGL
+
+Day 100 portfolio value: $1,000
+
+36-day MA: $950
+170-day MA: $900
+Signal: BUY (lower MA > higher MA)
+
+You buy the entire portfolio at optimal weights: $500 AAPL, $300 MSFT, $200 GOOGL
+Day 150 portfolio value: $1,100
+
+36-day MA: $1,050
+170-day MA: $1,080
+Signal: SELL (lower MA < higher MA)
+
+You sell everything, money sits in risk-free rate until next buy signal.
+Key Point
+The MA crossover signals when to be IN or OUT of the market entirely, not which individual stocks to trade. When you're in, you're always at the optimal portfolio weights from the efficient frontier.
+
+### Not financial advice. Just math on historical data.
