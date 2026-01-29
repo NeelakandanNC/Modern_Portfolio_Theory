@@ -51,4 +51,6 @@ Yahoo Finance gives you data from the most recent stock's start date. So if you 
 
 The risk-free rate assumes your idle cash earns that rate. In reality, you'd need to actually put it in T-bills or a money market fund.
 
+The moving average strategy is done on the whole portfolio level not on individual stock.
+
 Not financial advice. Just math on historical data.
