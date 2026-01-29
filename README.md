@@ -1,44 +1,54 @@
-# Modern Portfolio Creator and Analyzer
+# Portfolio Optimizer with Moving Average Strategy
 
-This script is an interactive tool for creating and analyzing a stock portfolio using the Modern Portfolio Theory approach. It leverages financial data from Yahoo Finance to help users build a market-cap-weighted portfolio, analyze its performance, and visualize key metrics.
+A finance project that combines Modern Portfolio Theory with tactical timing strategies to optimize portfolio allocation and returns.
 
-## Features
-- **User Input:** Enter a list of stock tickers to include in your portfolio.
-- **Data Download:** Fetches historical price data (since 2000) for all selected stocks.
-- **Data Cleaning:** Trims data to the common period where all stocks have available data.
-- **Market Cap Weighting:** Calculates each stock's weight in the portfolio based on its market capitalization.
-- **Portfolio Performance:** Computes portfolio returns, cumulative returns, annualized return, and volatility.
-- **Risk Metrics:** Calculates maximum drawdown and beta (vs. SPY benchmark) for each stock and the portfolio.
-- **Visualization:** Generates charts for stock prices, portfolio performance, risk vs. return, market caps, max drawdown, and beta.
+## What it does
 
-## How to Use
-1. **Run the Script:**
-   - Make sure you have Python 3.x installed.
-   - Install required packages: `yfinance`, `pandas`, `matplotlib`, `numpy`, `scipy`.
-   - Run the script in a terminal: `python modern_portfolio_creator_and_analyser.py`
-2. **Input Tickers:**
-   - When prompted, enter stock tickers separated by commas (e.g., `AAPL,MSFT,GOOGL`).
-3. **View Results:**
-   - The script will download data, perform analysis, and display results and charts.
+Takes your stock picks, finds the mathematically optimal weights using efficient frontier analysis, then tests thousands of moving average combinations to see if active timing can beat simple buy-and-hold.
 
-## Requirements
-- Python 3.x
-- yfinance
-- pandas
-- matplotlib
-- numpy
-- scipy
+## How to use
+```bash
+# Setup (first time only)
+python3 -m venv venv
+source venv/bin/activate
+pip install yfinance pandas numpy scipy matplotlib
 
-Install dependencies with:
+# Run
+python3 main.py
 ```
-pip install yfinance pandas matplotlib numpy scipy
-```
+
+You'll be asked for:
+- Stock tickers (e.g., AAPL, MSFT, GOOGL)
+- Step size for MA testing (1 = slow/thorough, 10 = fast/rough)
+- Risk-free rate (e.g., 4.5 for 4.5% T-bills)
+- Initial capital amount
+
+## What you get
+
+One image showing:
+- **Left**: Efficient frontier with your optimal portfolio weights
+- **Right**: Buy-hold vs MA strategy comparison with all the numbers
+
+Plus a CSV with every MA combination tested, sorted by performance.
+
+## The interesting part
+
+Most of the time, the MA strategy underperforms buy-and-hold. When it works, it's usually avoiding big drawdowns during crashes. Either way, you'll know if timing actually adds value for your specific portfolio.
+
+## Files
+
+- `main.py` - Entry point, run this
+- `config.py` - User inputs
+- `data_handler.py` - Yahoo Finance downloads
+- `portfolio_optimizer.py` - Efficient frontier math
+- `ma_strategy.py` - Moving average logic
+- `backtester.py` - Strategy testing
+- `visualizer.py` - Charts
 
 ## Notes
-- The script uses market capitalization to weight stocks in the portfolio.
-- If market cap data is missing for a ticker, it will be excluded from the portfolio.
-- The benchmark for beta calculation is SPY (S&P 500 ETF).
-- Results may be unreliable if limited historical data is available for the selected tickers.
 
-## License
-This script is provided for educational and informational purposes only. Use at your own risk.
+Yahoo Finance gives you data from the most recent stock's start date. So if you mix a 1990 stock with a 2020 IPO, you only get 2020-present. This is correct - you can't build a portfolio with stocks that didn't exist yet.
+
+The risk-free rate assumes your idle cash earns that rate. In reality, you'd need to actually put it in T-bills or a money market fund.
+
+Not financial advice. Just math on historical data.
